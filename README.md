@@ -335,3 +335,31 @@ The best next step is to scaffold the project as a static Vite app with:
 - Colab notebook template
 
 That gets the repository ready for iterative development while keeping deployment compatible with GitHub Pages.
+
+
+## Prototype included in this repository
+
+This repository now includes a static starter prototype for GitHub Pages:
+
+- `index.html` for the live inspection experience
+- `data.html` for dataset upload and manifest export
+- `styles.css` for the shared UI system
+- `js/detect.js` for camera access and a mock detection loop
+- `js/data-manager.js` for local dataset storage and manifest export
+- `js/firebase.js` for Firebase integration placeholders
+
+### Run locally
+Because the app uses ES modules and camera APIs, serve it with a simple local web server instead of opening the files directly.
+
+Example options:
+- `python -m http.server 4173`
+- `npx serve .`
+
+Then open:
+- `http://localhost:4173/index.html`
+- `http://localhost:4173/data.html`
+
+### Current prototype limitations
+- The detector is currently mocked and does not yet load a real TensorFlow.js model.
+- Dataset entries are stored in browser local storage until Firebase is wired in.
+- Exported manifests use base64 image previews for quick prototyping.
