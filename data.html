@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VisionGuard | Dataset Builder</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">VisionGuard V1</p>
+          <h1>Dataset builder</h1>
+          <p class="subtitle">Upload defect examples, label them, and export a training manifest for Google Colab.</p>
+        </div>
+        <nav class="nav">
+          <a class="nav-link" href="index.html">Detection</a>
+          <a class="nav-link active" href="data.html">Dataset Builder</a>
+        </nav>
+      </header>
+
+      <main class="grid-layout data-grid">
+        <section class="panel">
+          <div class="panel-header">
+            <div>
+              <p class="panel-kicker">Upload samples</p>
+              <h2>Create labeled defect data</h2>
+            </div>
+            <span class="badge muted">Local prototype</span>
+          </div>
+
+          <form id="dataset-form" class="form-stack">
+            <label>
+              Defect label
+              <select id="label" required>
+                <option value="missing_breather">Missing breather</option>
+                <option value="normal">Normal</option>
+                <option value="other_defect">Other defect</option>
+              </select>
+            </label>
+
+            <label>
+              Dataset split
+              <select id="split" required>
+                <option value="train">Train</option>
+                <option value="val">Validation</option>
+                <option value="test">Test</option>
+              </select>
+            </label>
+
+            <label>
+              Notes
+              <textarea id="notes" rows="4" placeholder="Example: Breather cap missing on left side housing."></textarea>
+            </label>
+
+            <label>
+              Image files
+              <input id="images" type="file" accept="image/*" multiple required />
+            </label>
+
+            <div class="controls">
+              <button class="button primary" type="submit">Save samples</button>
+              <button id="export-manifest" class="button secondary" type="button">Export manifest</button>
+              <button id="clear-dataset" class="button ghost" type="button">Clear local data</button>
+            </div>
+          </form>
+        </section>
+
+        <aside class="stack">
+          <section class="panel">
+            <div class="panel-header">
+              <div>
+                <p class="panel-kicker">Dataset summary</p>
+                <h2>Stored samples</h2>
+              </div>
+            </div>
+            <dl class="stats-grid">
+              <div>
+                <dt>Total items</dt>
+                <dd id="sample-count">0</dd>
+              </div>
+              <div>
+                <dt>Missing breather</dt>
+                <dd id="missing-count">0</dd>
+              </div>
+              <div>
+                <dt>Normal</dt>
+                <dd id="normal-count">0</dd>
+              </div>
+              <div>
+                <dt>Other defect</dt>
+                <dd id="other-count">0</dd>
+              </div>
+            </dl>
+            <p class="helper-text">In production, replace local storage with Firebase Storage + Firestore records.</p>
+          </section>
+
+          <section class="panel">
+            <div class="panel-header">
+              <div>
+                <p class="panel-kicker">Colab handoff</p>
+                <h2>Training export</h2>
+              </div>
+            </div>
+            <p class="helper-text">The exported JSON manifest mirrors the metadata your Colab notebook will download from Firebase for training and evaluation.</p>
+            <pre id="manifest-preview" class="manifest-preview">[]</pre>
+          </section>
+        </aside>
+      </main>
+
+      <section class="panel">
+        <div class="panel-header">
+          <div>
+            <p class="panel-kicker">Image review</p>
+            <h2>Dataset browser</h2>
+          </div>
+        </div>
+        <div id="dataset-gallery" class="gallery empty-gallery">
+          <p>No samples saved yet. Upload images to build the dataset.</p>
+        </div>
+      </section>
+    </div>
+
+    <script type="module" src="js/data-manager.js"></script>
+  </body>
+</html>

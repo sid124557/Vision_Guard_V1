@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VisionGuard | Live Detection</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">VisionGuard V1</p>
+          <h1>Live defect detection</h1>
+          <p class="subtitle">Phone camera inspection for missing breather detection with browser-based AI.</p>
+        </div>
+        <nav class="nav">
+          <a class="nav-link active" href="index.html">Detection</a>
+          <a class="nav-link" href="data.html">Dataset Builder</a>
+        </nav>
+      </header>
+
+      <main class="grid-layout">
+        <section class="panel viewer-panel">
+          <div class="panel-header">
+            <div>
+              <p class="panel-kicker">Inspection feed</p>
+              <h2>Rear camera stream</h2>
+            </div>
+            <span id="camera-status" class="badge muted">Camera idle</span>
+          </div>
+
+          <div class="video-stage">
+            <video id="camera" playsinline muted></video>
+            <canvas id="overlay"></canvas>
+            <div id="empty-state" class="empty-state">
+              <p>Tap “Start camera” to begin inspection.</p>
+            </div>
+          </div>
+
+          <div class="controls">
+            <button id="start-camera" class="button primary">Start camera</button>
+            <button id="stop-camera" class="button secondary" disabled>Stop camera</button>
+            <label class="threshold-control" for="threshold">
+              Confidence threshold
+              <input id="threshold" type="range" min="0.5" max="0.95" step="0.05" value="0.8" />
+              <span id="threshold-value">80%</span>
+            </label>
+          </div>
+        </section>
+
+        <aside class="stack">
+          <section class="panel">
+            <div class="panel-header">
+              <div>
+                <p class="panel-kicker">Model status</p>
+                <h2>Inference summary</h2>
+              </div>
+              <span id="model-state" class="badge success">Mock model ready</span>
+            </div>
+            <dl class="stats-grid">
+              <div>
+                <dt>Current defect</dt>
+                <dd id="defect-label">No defect</dd>
+              </div>
+              <div>
+                <dt>Confidence</dt>
+                <dd id="defect-confidence">0%</dd>
+              </div>
+              <div>
+                <dt>Frames analyzed</dt>
+                <dd id="frame-count">0</dd>
+              </div>
+              <div>
+                <dt>Logged events</dt>
+                <dd id="event-count">0</dd>
+              </div>
+            </dl>
+            <p class="helper-text">This starter uses a simulated detector so the UI can be tested on GitHub Pages before a TensorFlow.js model is connected.</p>
+          </section>
+
+          <section class="panel">
+            <div class="panel-header">
+              <div>
+                <p class="panel-kicker">Recent activity</p>
+                <h2>Detection log</h2>
+              </div>
+            </div>
+            <ul id="detection-log" class="event-list">
+              <li class="empty-list">No detections logged yet.</li>
+            </ul>
+          </section>
+        </aside>
+      </main>
+    </div>
+
+    <script type="module" src="js/detect.js"></script>
+  </body>
+</html>
